@@ -18,12 +18,12 @@ struct BigBinary {
     }
 
     void report_and_exit(const char* msg, size_t num_steps) const {
-        const auto stars = std::string(30, '*');
-        std::cout << stars <<  "\n " << msg << "\nNumber:\n" << *this;
+        const auto stars = std::string(120, '*');
+        std::cout << stars <<  "\n" << msg << '\n' << stars << "\nNumber:\n" << *this;
         if (num_steps > 0) {
-            std::cout << "num_steps: " << num_steps;
+            std::cout << "\nnum_steps: " << num_steps;
         }
-        std::cout << stars << std::endl;
+        std::cout << '\n' << stars << std::endl;
         const std::string filename = "collatz_result_" + std::to_string(rand() % 10000) + ".txt";
         save_to_file("/tmp/" + filename);
 //        save_to_file("$HOME/" + filename);

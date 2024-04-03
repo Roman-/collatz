@@ -23,9 +23,12 @@ int main(int argc, const char* argv[]) {
         if (num_steps > max_steps_found) {
             max_steps_found = num_steps;
             num_with_max_num_steps = num;
+            if (num_steps > 500) {
+                std::cout << "New max steps = " << max_steps_found << " for number " << num_with_max_num_steps << std::endl;
+            }
         }
         if (test_index % report_interval == 0) {
-            std::cout << "Checked " << test_index << " numbers, max steps = " << max_steps_found << " for number " << num_with_max_num_steps << std::endl;
+            std::cout << "Checked " << test_index << " numbers, max steps = " << max_steps_found << ", now on number " << num << std::endl;
         }
         num.add_two();
     }
