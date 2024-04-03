@@ -2,14 +2,16 @@
 #include <bitset>
 #include <fstream>
 #include <limits>
+#include "Config.h"
 #include "BigBinary.h"
 
 int main(int argc, const char* argv[]) {
+    srand(time(0)); // TODO for initial number generation - make configurable?
+
     size_t max_tests = std::numeric_limits<size_t>::max();
     if (argc == 2) {
         max_tests = std::stoull(argv[1]);
     }
-    const size_t report_interval = 500'000;
     const BigBinary start_number = BigBinary::generate_initial_number();
     std::cout << "Running " << max_tests << " tests on binary numbers with " << N_BITS << " bits, starting with "
         << start_number << std::endl;
@@ -27,7 +29,7 @@ int main(int argc, const char* argv[]) {
                 std::cout << "New max steps = " << max_steps_found << " for number " << num_with_max_num_steps << std::endl;
             }
         }
-        if (test_index % report_interval == 0) {
+        if (test_index % PROGRESS_REPORT_INTERVAL == 0) {
             std::cout << "Checked " << test_index << " numbers, max steps = " << max_steps_found << ", now on number " << num << std::endl;
         }
         num.add_two();

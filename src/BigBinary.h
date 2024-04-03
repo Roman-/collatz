@@ -1,8 +1,6 @@
 #pragma once
 #include <bitset>
-
-// N_BITS actually defined in cmake, but lang processor doesn't see it
-#define N_BITS 160
+#include "Config.h"
 
 struct BigBinary {
     std::bitset<N_BITS> bits;
@@ -17,7 +15,7 @@ struct BigBinary {
         std::cout << "saved result to " << path << std::endl;
     }
 
-    void report_and_exit(const char* msg, size_t num_steps) const {
+    void report_and_exit(const char* msg, size_t num_steps, int exit_code) const {
         const auto stars = std::string(120, '*');
         std::cout << stars <<  "\n" << msg << '\n' << stars << "\nNumber:\n" << *this;
         if (num_steps > 0) {
@@ -27,7 +25,7 @@ struct BigBinary {
         const std::string filename = "collatz_result_" + std::to_string(rand() % 10000) + ".txt";
         save_to_file("/tmp/" + filename);
 //        save_to_file("$HOME/" + filename);
-        exit(0);
+        exit(exit_code);
     }
 
     ssize_t first_non_zero_bit_index() const {
@@ -74,7 +72,7 @@ struct BigBinary {
     void multiplyByThreeAndAddOne() {
         // the only place that's checked for overflow
         if (bits.test(N_BITS - 1) || bits.test(N_BITS - 2)) {
-            report_and_exit("Overflow when tried to apply 3x+1", 0);
+            report_and_exit("Overflow when tried to apply 3x+1", 0, EXIT_CODE_OVERFLOW);
         }
         const auto original_bits = *this; // copy
         bits <<= 1; // 2 * num
@@ -107,7 +105,7 @@ struct BigBinary {
             ++num_steps;
         }
         if (num.bits == bits) {
-            report_and_exit("Found cycle", num_steps);
+            report_and_exit("Found cycle", num_steps, EXIT_CODE_CYCLE_FOUND);
         }
         return num_steps;
     }
