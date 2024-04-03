@@ -80,11 +80,19 @@ struct BigBinary {
         add(original_bits); // 3 * num
     }
 
-    void apply_three_x_plus_one() {
-        if (bits.test(0)) { // odd
-            multiplyByThreeAndAddOne();
+    // does 3x+1 and divides by 2 until it's odd again
+    void apply_reduction() {
+        if (!bits.test(0)) {
+            std::cerr << "You were trying to apply_reduction to an even number " << *this << std::endl;
+            abort();
         }
-        bits >>= 1; // ÷2
+        multiplyByThreeAndAddOne();
+        // divide by 2 until it's odd by removing all trailing zeros
+        size_t num_zeros = 0;
+        while (!bits.test(num_zeros)) {
+            ++num_zeros;
+        }
+        bits >>= num_zeros;
     }
 
     bool operator>(const BigBinary& rhs) const {
@@ -98,10 +106,10 @@ struct BigBinary {
 
     size_t num_steps_to_converge_below_itself() const {
         auto num = *this; // copy to perform operations on it
-        num.apply_three_x_plus_one();
+        num.apply_reduction();
         size_t num_steps = 1;
         while (num > *this) {
-            num.apply_three_x_plus_one();
+            num.apply_reduction();
             ++num_steps;
         }
         if (num.bits == bits) {
