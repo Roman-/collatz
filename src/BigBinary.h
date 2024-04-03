@@ -75,9 +75,9 @@ struct BigBinary {
             report_and_exit("Overflow when tried to apply 3x+1", 0, EXIT_CODE_OVERFLOW);
         }
         const auto original_bits = *this; // copy
-        bits <<= 1; // 2 * num
+        bits <<= 1; // 2 * num. Last bit is now zero
+        bits.set(0); // 2 * num + 1. last bit is one
         add(original_bits); // 3 * num
-        increment(); // 3 * num + 1
     }
 
     void apply_three_x_plus_one() {

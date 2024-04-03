@@ -36,5 +36,5 @@ int main(int argc, const char* argv[]) {
     }
     std::cout << "Checked " << max_tests << " numbers in range\n" << start_number << " -\n" << num << "\n\n";
     std::cout << "Max steps = " << max_steps_found << " for number\n" << num_with_max_num_steps << std::endl;
-    return 0;
+    return EXIT_CODE_SEARCH_FINISHED;
 }
