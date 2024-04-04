@@ -132,7 +132,7 @@ struct BigBinary {
     template<typename OStream>
     friend OStream& operator<<(OStream& os, const BigBinary& b) {
         const auto first_non_zero = b.first_non_zero_bit_index();
-        for (ssize_t i = first_non_zero; i > 0; --i) {
+        for (ssize_t i = first_non_zero; i >= 0; --i) {
             os << b.bits[i];
         }
         os << " (~2^" << first_non_zero << ')';
