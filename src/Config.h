@@ -11,3 +11,5 @@ static constexpr int EXIT_CODE_CYCLE_FOUND = 42;
 
 // This may actually mean we've onto something
 static constexpr int EXIT_CODE_OVERFLOW = 43;
+
+static constexpr int EXIT_CODE_INTERNAL_ERROR = 255;

@@ -32,7 +32,7 @@ int main(int argc, const char* argv[]) {
         if (test_index % PROGRESS_REPORT_INTERVAL == 0) {
             std::cout << "Checked " << test_index << " numbers, max steps = " << max_steps_found << ", now on number " << num << std::endl;
         }
-        num.add_two();
+        num.add_two_to_the_power_of(2); // add 4 to get number that ends with '11' (use the `n mod 4 = 1` optimization)
     }
     std::cout << "Checked " << max_tests << " numbers in range\n" << start_number << " -\n" << num << "\n\n";
     std::cout << "Max steps = " << max_steps_found << " for number\n" << num_with_max_num_steps << std::endl;

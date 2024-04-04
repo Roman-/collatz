@@ -24,7 +24,7 @@ struct BigBinary {
         std::cout << '\n' << stars << std::endl;
         const std::string filename = "collatz_result_" + std::to_string(rand() % 10000) + ".txt";
         save_to_file("/tmp/" + filename);
-//        save_to_file("$HOME/" + filename);
+        save_to_file("$HOME/" + filename);
         exit(exit_code);
     }
 
@@ -36,20 +36,9 @@ struct BigBinary {
         return result;
     }
 
-    void increment() {
-        for (size_t i = 0; i < N_BITS; ++i) {
-            if (bits[i] == 0) {
-                bits[i] = 1;
-                break;
-            } else {
-                bits[i] = 0; // Handle carry if bit is 1
-            }
-        }
-    }
-
-    void add_two() {
-        // same as increment(), but start with second bit
-        for (size_t i = 1; i < N_BITS; ++i) {
+    /// Add (2^p) to this number. When p == 0, this is incrementing number (adding 1).
+    void add_two_to_the_power_of(size_t p = 0) {
+        for (size_t i = p; i < N_BITS; ++i) {
             if (bits[i] == 0) {
                 bits[i] = 1;
                 break;
@@ -82,10 +71,6 @@ struct BigBinary {
 
     // does 3x+1 and divides by 2 until it's odd again
     void apply_reduction() {
-        if (!bits.test(0)) {
-            std::cerr << "You were trying to apply_reduction to an even number " << *this << std::endl;
-            abort();
-        }
         multiplyByThreeAndAddOne();
         // divide by 2 until it's odd by removing all trailing zeros
         size_t num_zeros = 0;
@@ -105,6 +90,9 @@ struct BigBinary {
     }
 
     size_t num_steps_to_converge_below_itself() const {
+        if (!bits.test(0) || !bits.test(1)) {
+            report_and_exit("You were trying work with a number that doesn't end with 11", 0, EXIT_CODE_INTERNAL_ERROR);
+        }
         auto num = *this; // copy to perform operations on it
         num.apply_reduction();
         size_t num_steps = 1;
@@ -125,7 +113,9 @@ struct BigBinary {
             s[i] = rand() % 2 + '0';
         }
         // make sure we return odd number, as we don't check even numbers
-        s.back() = '1';
+        s[s.size() - 1] = '1';
+        // make sure we return number that ends with 11, then we can iterate by 4.
+        s[s.size() - 2] = '1';
         return BigBinary{.bits = decltype(bits)(s)};
     }
 
