@@ -4,6 +4,7 @@
 #include <limits>
 #include "Config.h"
 #include "BigBinary.h"
+#include "Helpers.h"
 
 int main(int argc, const char* argv[]) {
     srand(time(0)); // TODO for initial number generation - make configurable?
@@ -30,7 +31,7 @@ int main(int argc, const char* argv[]) {
             }
         }
         if (test_index % PROGRESS_REPORT_INTERVAL == 0) {
-            std::cout << "Checked " << test_index << " numbers, max steps = " << max_steps_found << ", now on number " << num << std::endl;
+            std::cout << "Checked " << format_round_number(test_index) << " numbers, max steps = " << max_steps_found << ", now on number " << num << std::endl;
         }
         num.add_two_to_the_power_of(2); // add 4 to get number that ends with '11' (use the `n mod 4 = 1` optimization)
     }

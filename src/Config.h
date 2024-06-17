@@ -1,6 +1,6 @@
 #pragma once
 
-static constexpr size_t N_BITS = 170;
+static constexpr size_t N_BITS = 380;
 
 // report progress interval when searching. Bigger values give less often progress reports
 static constexpr size_t PROGRESS_REPORT_INTERVAL = 1'000'000;
