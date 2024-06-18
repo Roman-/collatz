@@ -1,6 +1,5 @@
 # Collatz Conjecture (aka 3x+1 problem) Counterexample Finder
 
-## What is This?
 This program generates random large binary numbers and performs a futile attempt to find a counterexample to the well-known [Collatz Conjecture](https://youtu.be/094y1Z2wpJg?si=LqJe-1eHn__2wooY). Spoiler: It probably won't.
 
 ## Build
@@ -17,7 +16,7 @@ make
 
 ## How it works
 
-An N-bit binary number is generated, where N is defined at compile time (see `Config.h`). Starting from this initial number, the program searches upward, performing the 3x+1 operations in an [efficient manner](https://en.wikipedia.org/wiki/Collatz_conjecture#Other_formulations_of_the_conjecture) until it verifies that the number reduces below its initial value. Optimizations, such as skipping even numbers, are employed to enhance efficiency.
+An N-bit binary number is generated, where N is defined at compile time (see `Config.h`). Starting from this initial number, the program searches upward, performing the 3x+1 operations in [base two](https://en.wikipedia.org/wiki/Collatz_conjecture#As_an_abstract_machine_that_computes_in_base_two) until it verifies that the number reduces below its initial value. Optimizations, such as skipping even numbers, are employed to enhance efficiency.
 
 ## Example output
 ```
