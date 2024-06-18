@@ -3,14 +3,21 @@
 ## What is This?
 This program generates random large binary numbers and performs a futile attempt to find a counterexample to the well-known [Collatz Conjecture](https://youtu.be/094y1Z2wpJg?si=LqJe-1eHn__2wooY). Spoiler: It probably won't.
 
-## Usage
+## Build
 ```sh
-mkidr build
-cd build
+mkidr build && cd build
 cmake -DCMAKE_BUILD_TYPE=Release ..
 make
+```
+
+## Run
+```sh
 ./collatz
 ```
+
+## How it works
+
+An N-bit binary number is generated, where N is defined at compile time (see `Config.h`). Starting from this initial number, the program searches upward, performing the 3x+1 operations in an [efficient manner](https://en.wikipedia.org/wiki/Collatz_conjecture#Other_formulations_of_the_conjecture) until it verifies that the number reduces below its initial value. Optimizations, such as skipping even numbers, are employed to enhance efficiency.
 
 ## Example output
 ```
