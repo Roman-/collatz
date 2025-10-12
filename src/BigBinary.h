@@ -6,12 +6,12 @@ struct BigBinary {
     std::bitset<N_BITS> bits;
 
     void save_to_file(const std::string& path) const {
-        try {
-            std::ofstream file(path);
-            file << *this;
-        } catch (std::exception& e) {
-            std::cerr << "failed to save to file: " << e.what() << std::endl;
+        std::ofstream file(path);
+        if (!file) {
+            std::cerr << "failed to open '" << path << "' for write\n";
+            return;
         }
+        file << *this;
         std::cout << "saved result to " << path << std::endl;
     }
 
@@ -24,7 +24,9 @@ struct BigBinary {
         std::cout << '\n' << stars << std::endl;
         const std::string filename = "collatz_result_" + std::to_string(rand() % 10000) + ".txt";
         save_to_file("/tmp/" + filename);
-        save_to_file("$HOME/" + filename);
+        const char* home = std::getenv("HOME");
+        const std::string second_path = home ? (std::string(home) + "/") : ""; // relative, in case HOME is not set
+        save_to_file(second_path + filename);
         exit(exit_code);
     }
 
@@ -74,7 +76,7 @@ struct BigBinary {
         multiplyByThreeAndAddOne();
         // divide by 2 until it's odd by removing all trailing zeros
         size_t num_zeros = 0;
-        while (!bits.test(num_zeros)) {
+        while (num_zeros < N_BITS && !bits.test(num_zeros)) {
             ++num_zeros;
         }
         bits >>= num_zeros;
