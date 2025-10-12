@@ -19,7 +19,7 @@ int main(int argc, const char* argv[]) {
 
     BigBinary num = start_number;
     size_t max_steps_found = 0;
-    BigBinary num_with_max_num_steps = {.bits = 0};
+    BigBinary num_with_max_num_steps{};
 
     for (size_t test_index = 1; test_index <= max_tests; ++test_index) {
         const size_t num_steps = num.num_steps_to_converge_below_itself();
