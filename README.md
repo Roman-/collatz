@@ -4,8 +4,14 @@ This program generates random large binary numbers and performs a futile attempt
 
 ## Build
 ```sh
-mkidr build && cd build
+mkdir build && cd build
 cmake -DCMAKE_BUILD_TYPE=Release ..
+make
+```
+
+## Build with tests
+```sh
+cmake -DBUILD_TESTS=ON -DCMAKE_BUILD_TYPE=Release ..
 make
 ```
 

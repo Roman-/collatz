@@ -10,4 +10,7 @@ file(GLOB SOURCE_FILES
 
 add_executable(collatz ${SOURCE_FILES})
 
-add_subdirectory(tests)
+option(BUILD_TESTS "Build unit tests" OFF)
+if(BUILD_TESTS)
+    add_subdirectory(tests)
+endif()
