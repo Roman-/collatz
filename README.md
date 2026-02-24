@@ -5,13 +5,13 @@ This program generates random large binary numbers and performs a futile attempt
 ## Build
 ```sh
 mkdir build && cd build
-cmake -DCMAKE_BUILD_TYPE=Release ..
+cmake ..
 make
 ```
 
 ## Build with tests
 ```sh
-cmake -DBUILD_TESTS=ON -DCMAKE_BUILD_TYPE=Release ..
+cmake -DBUILD_TESTS=ON ..
 make
 ```
 
