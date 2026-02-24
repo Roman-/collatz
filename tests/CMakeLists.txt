@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.25)
+cmake_minimum_required(VERSION 3.14)
 project(collatz_tests)
 
 file(GLOB TEST_SRC_FILES
